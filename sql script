@@ -1,0 +1,267 @@
+USE [master]
+GO
+/****** Object:  Database [Labb 2]    Script Date: 2022-01-30 14:10:11 ******/
+CREATE DATABASE [Labb 2]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Labb 2 – ER-modellering & SQL', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\Labb 2 – ER-modellering & SQL.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Labb 2 – ER-modellering & SQL_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\Labb 2 – ER-modellering & SQL_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [Labb 2] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Labb 2].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Labb 2] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Labb 2] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Labb 2] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Labb 2] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Labb 2] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Labb 2] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [Labb 2] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Labb 2] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Labb 2] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Labb 2] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Labb 2] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Labb 2] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Labb 2] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Labb 2] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Labb 2] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [Labb 2] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Labb 2] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Labb 2] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Labb 2] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Labb 2] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Labb 2] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [Labb 2] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Labb 2] SET RECOVERY FULL 
+GO
+ALTER DATABASE [Labb 2] SET  MULTI_USER 
+GO
+ALTER DATABASE [Labb 2] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Labb 2] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Labb 2] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Labb 2] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [Labb 2] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [Labb 2] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'Labb 2', N'ON'
+GO
+ALTER DATABASE [Labb 2] SET QUERY_STORE = OFF
+GO
+USE [Labb 2]
+GO
+/****** Object:  Table [dbo].[Befattning]    Script Date: 2022-01-30 14:10:12 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Befattning](
+	[Id] [int] NOT NULL,
+	[befattning] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_personal] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Elev]    Script Date: 2022-01-30 14:10:12 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Elev](
+	[Id] [int] NOT NULL,
+	[fNamn] [nvarchar](50) NOT NULL,
+	[eNamn] [nvarchar](50) NOT NULL,
+	[personNummer] [int] NOT NULL,
+	[klassId] [int] NOT NULL,
+ CONSTRAINT [PK_Elev] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[elevKurser]    Script Date: 2022-01-30 14:10:12 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[elevKurser](
+	[fElevId] [int] NULL,
+	[fKursId] [int] NULL,
+	[fKursBetyg] [int] NULL,
+	[betygDatum] [date] NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Klass]    Script Date: 2022-01-30 14:10:12 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Klass](
+	[Id] [int] NOT NULL,
+	[Namn] [nvarchar](50) NOT NULL,
+	[antalElever] [int] NULL,
+	[skolaId] [int] NOT NULL,
+ CONSTRAINT [PK_Klass] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Kurs]    Script Date: 2022-01-30 14:10:12 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Kurs](
+	[Id] [int] NOT NULL,
+	[kursNamn] [nvarchar](50) NOT NULL,
+	[lärarID] [int] NULL,
+ CONSTRAINT [PK_Kurs_1] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Personal]    Script Date: 2022-01-30 14:10:12 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Personal](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[fNamn] [nvarchar](50) NOT NULL,
+	[eNamn] [nvarchar](50) NOT NULL,
+	[befattningsID] [int] NOT NULL,
+	[skolId] [int] NULL,
+ CONSTRAINT [PK_Personal_1] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Skola]    Script Date: 2022-01-30 14:10:12 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Skola](
+	[Id] [int] NOT NULL,
+	[SkolNamn] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Skola] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT [dbo].[Befattning] ([Id], [befattning]) VALUES (1, N'Lärare')
+INSERT [dbo].[Befattning] ([Id], [befattning]) VALUES (2, N'Rektor')
+INSERT [dbo].[Befattning] ([Id], [befattning]) VALUES (3, N'Admin')
+GO
+INSERT [dbo].[Elev] ([Id], [fNamn], [eNamn], [personNummer], [klassId]) VALUES (1, N'Erik', N'Risholm', 930101, 1)
+INSERT [dbo].[Elev] ([Id], [fNamn], [eNamn], [personNummer], [klassId]) VALUES (2, N'Lukas', N'Rose', 950202, 1)
+INSERT [dbo].[Elev] ([Id], [fNamn], [eNamn], [personNummer], [klassId]) VALUES (3, N'Viktor', N'Gunnarsson', 930303, 1)
+INSERT [dbo].[Elev] ([Id], [fNamn], [eNamn], [personNummer], [klassId]) VALUES (4, N'Erik', N'Norell', 950404, 1)
+INSERT [dbo].[Elev] ([Id], [fNamn], [eNamn], [personNummer], [klassId]) VALUES (5, N'Anna', N'Bengtsson', 930204, 2)
+INSERT [dbo].[Elev] ([Id], [fNamn], [eNamn], [personNummer], [klassId]) VALUES (6, N'Albin ', N'Svensson', 970516, 2)
+INSERT [dbo].[Elev] ([Id], [fNamn], [eNamn], [personNummer], [klassId]) VALUES (7, N'Simon', N'Andersson', 910222, 2)
+GO
+INSERT [dbo].[elevKurser] ([fElevId], [fKursId], [fKursBetyg], [betygDatum]) VALUES (1, 1, 1, CAST(N'2020-01-23' AS Date))
+INSERT [dbo].[elevKurser] ([fElevId], [fKursId], [fKursBetyg], [betygDatum]) VALUES (1, 2, 2, CAST(N'2020-02-05' AS Date))
+INSERT [dbo].[elevKurser] ([fElevId], [fKursId], [fKursBetyg], [betygDatum]) VALUES (2, 2, 2, CAST(N'2020-02-05' AS Date))
+INSERT [dbo].[elevKurser] ([fElevId], [fKursId], [fKursBetyg], [betygDatum]) VALUES (2, 3, 3, CAST(N'2019-11-12' AS Date))
+INSERT [dbo].[elevKurser] ([fElevId], [fKursId], [fKursBetyg], [betygDatum]) VALUES (3, 3, 5, CAST(N'2019-11-13' AS Date))
+INSERT [dbo].[elevKurser] ([fElevId], [fKursId], [fKursBetyg], [betygDatum]) VALUES (3, 4, 5, CAST(N'2019-10-15' AS Date))
+INSERT [dbo].[elevKurser] ([fElevId], [fKursId], [fKursBetyg], [betygDatum]) VALUES (4, 4, 3, CAST(N'2019-10-15' AS Date))
+INSERT [dbo].[elevKurser] ([fElevId], [fKursId], [fKursBetyg], [betygDatum]) VALUES (5, 5, 4, CAST(N'2022-01-15' AS Date))
+INSERT [dbo].[elevKurser] ([fElevId], [fKursId], [fKursBetyg], [betygDatum]) VALUES (6, 4, 5, CAST(N'2022-01-10' AS Date))
+INSERT [dbo].[elevKurser] ([fElevId], [fKursId], [fKursBetyg], [betygDatum]) VALUES (7, 1, 2, CAST(N'2022-01-02' AS Date))
+GO
+INSERT [dbo].[Klass] ([Id], [Namn], [antalElever], [skolaId]) VALUES (1, N'sut21', 5, 1)
+INSERT [dbo].[Klass] ([Id], [Namn], [antalElever], [skolaId]) VALUES (2, N'sut20', 4, 1)
+GO
+INSERT [dbo].[Kurs] ([Id], [kursNamn], [lärarID]) VALUES (1, N'matte 1', 1)
+INSERT [dbo].[Kurs] ([Id], [kursNamn], [lärarID]) VALUES (2, N'fysik 1', 1)
+INSERT [dbo].[Kurs] ([Id], [kursNamn], [lärarID]) VALUES (3, N'svenska 3', 5)
+INSERT [dbo].[Kurs] ([Id], [kursNamn], [lärarID]) VALUES (4, N'engelska 6', 2)
+INSERT [dbo].[Kurs] ([Id], [kursNamn], [lärarID]) VALUES (5, N'Programmering 2', 2)
+GO
+SET IDENTITY_INSERT [dbo].[Personal] ON 
+
+INSERT [dbo].[Personal] ([Id], [fNamn], [eNamn], [befattningsID], [skolId]) VALUES (1, N'Lars', N'Svensson', 1, 1)
+INSERT [dbo].[Personal] ([Id], [fNamn], [eNamn], [befattningsID], [skolId]) VALUES (2, N'Anna', N'Jo', 1, 1)
+INSERT [dbo].[Personal] ([Id], [fNamn], [eNamn], [befattningsID], [skolId]) VALUES (3, N'Greger', N'Borg', 2, 1)
+INSERT [dbo].[Personal] ([Id], [fNamn], [eNamn], [befattningsID], [skolId]) VALUES (4, N'Svante', N'Nordin', 3, 1)
+INSERT [dbo].[Personal] ([Id], [fNamn], [eNamn], [befattningsID], [skolId]) VALUES (5, N'Eva', N'Gredin', 1, 1)
+INSERT [dbo].[Personal] ([Id], [fNamn], [eNamn], [befattningsID], [skolId]) VALUES (6, N'Tobias', N'Landen', 2, 1)
+SET IDENTITY_INSERT [dbo].[Personal] OFF
+GO
+INSERT [dbo].[Skola] ([Id], [SkolNamn]) VALUES (1, N'Campus Varberg')
+GO
+ALTER TABLE [dbo].[Elev]  WITH CHECK ADD  CONSTRAINT [FK_Elev_Klass] FOREIGN KEY([klassId])
+REFERENCES [dbo].[Klass] ([Id])
+GO
+ALTER TABLE [dbo].[Elev] CHECK CONSTRAINT [FK_Elev_Klass]
+GO
+ALTER TABLE [dbo].[elevKurser]  WITH CHECK ADD  CONSTRAINT [FK_elevKurser_Elev] FOREIGN KEY([fElevId])
+REFERENCES [dbo].[Elev] ([Id])
+GO
+ALTER TABLE [dbo].[elevKurser] CHECK CONSTRAINT [FK_elevKurser_Elev]
+GO
+ALTER TABLE [dbo].[elevKurser]  WITH CHECK ADD  CONSTRAINT [FK_elevKurser_Kurs] FOREIGN KEY([fKursId])
+REFERENCES [dbo].[Kurs] ([Id])
+GO
+ALTER TABLE [dbo].[elevKurser] CHECK CONSTRAINT [FK_elevKurser_Kurs]
+GO
+ALTER TABLE [dbo].[Klass]  WITH CHECK ADD  CONSTRAINT [FK_Klass_Skola] FOREIGN KEY([skolaId])
+REFERENCES [dbo].[Skola] ([Id])
+GO
+ALTER TABLE [dbo].[Klass] CHECK CONSTRAINT [FK_Klass_Skola]
+GO
+ALTER TABLE [dbo].[Kurs]  WITH CHECK ADD  CONSTRAINT [FK_Kurs_Personal] FOREIGN KEY([lärarID])
+REFERENCES [dbo].[Personal] ([Id])
+GO
+ALTER TABLE [dbo].[Kurs] CHECK CONSTRAINT [FK_Kurs_Personal]
+GO
+ALTER TABLE [dbo].[Personal]  WITH CHECK ADD  CONSTRAINT [FK_Personal_Befattning] FOREIGN KEY([befattningsID])
+REFERENCES [dbo].[Befattning] ([Id])
+GO
+ALTER TABLE [dbo].[Personal] CHECK CONSTRAINT [FK_Personal_Befattning]
+GO
+USE [master]
+GO
+ALTER DATABASE [Labb 2] SET  READ_WRITE 
+GO
